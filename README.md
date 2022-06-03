@@ -1,16 +1,24 @@
 # digitize_management_app
 
-A new Flutter project.
+An app to digitize college management.
 
-## Getting Started
+## Installing and setting up a flutter environment
 
-This project is a starting point for a Flutter application.
+Install git before next steps
+[git](https://git-scm.com/download/win)
 
-A few resources to get you started if this is your first Flutter project:
+Before installing flutter we will need to install andriod studio, it is a requirement.
+[Andriod studio](https://developer.android.com/studio)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Now you can follow the instruction to install the flutter kit.
+[installing flutter](https://docs.flutter.dev/get-started/install/windows)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Getting Started with flutter
+
+A few resources to get you started with flutter:
+
+Everything you might need [online flutter documentation](https://docs.flutter.dev/)
+
+Basics of flutter app from flutter developers. [Flutter fundamentals](https://www.youtube.com/playlist?list=PLjxrf2q8roU3wk7CDw4RfV3mEwOJbjx1k)
+
+Watch the first 14 videos of this playlist for a absolute basics intro. [flutter basics playlist](https://www.youtube.com/playlist?list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
