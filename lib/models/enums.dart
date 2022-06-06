@@ -6,21 +6,21 @@ enum Year {
 }
 
 enum Role {
-  member,
   mainCoord,
+  member,
   president,
   vicePresident,
 }
 
 enum Branch {
-  civil,
-  elec,
-  inst,
-  extc,
-  mech,
-  it,
-  cse,
   chem,
-  text,
+  civil,
+  cse,
+  elec,
+  extc,
+  inst,
+  it,
+  mech,
   prod,
+  text,
 }
