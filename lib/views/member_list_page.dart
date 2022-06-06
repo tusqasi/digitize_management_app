@@ -18,14 +18,13 @@ class _MemberListState extends State<MemberList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-          "MemberList",
-          style: GoogleFonts.openSans(
-            textStyle: const TextStyle(fontSize: 20),
-          ),
-        )),
-        body: Column(
-            children: [for (var mem in widget.members) MemberEntry(mem)]));
+      appBar: AppBar(
+          title: Text(
+        "MemberList",
+        style: GoogleFonts.openSans(),
+      )),
+      body: ListView(
+          children: [for (var mem in widget.members) MemberEntry(mem)]),
+    );
   }
 }
