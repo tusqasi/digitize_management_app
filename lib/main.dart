@@ -9,7 +9,7 @@ void main() {
   final faker = Faker.instance;
   List<Member> members = [];
   // late String email;
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 100; i++) {
     members.add(
       Member(
         name: [
@@ -25,8 +25,10 @@ void main() {
     );
   }
 
-  runApp(MaterialApp(
-    title: "Members",
-    home: MemberList(members),
-  ));
+  runApp(
+    MaterialApp(
+      title: "Members",
+      home: MemberList(members),
+    ),
+  );
 }
