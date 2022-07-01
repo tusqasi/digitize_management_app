@@ -1,5 +1,27 @@
 # digitize_management_app
 
+# Filesystem 
+
+.
+├── models
+│   ├── club.dart
+│   ├── meeting.dart
+│   ├── member.dart
+│   └── user.dart
+├── views
+│   ├── create_meeting.dart
+│   ├── create_poll.dart
+│   ├── edit_event.dart
+│   ├── home.dart
+│   ├── login.dart
+│   └── sigin.dart
+└── widgets
+    ├── bottombar.dart
+    ├── edit_page_text_field.dart
+    ├── home_notification_entry.dart
+    ├── home_today_entry.dart
+    └── topbar.dart
+
 An app to digitize college management.
 
 ## Installing and setting up a flutter environment
