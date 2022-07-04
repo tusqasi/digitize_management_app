@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
-  BottomBar({Key? key}) : super(key: key);
+  late Function OnTap;
+  BottomBar(this.OnTap, {Key? key}) : super(key: key);
 
   @override
-  _BottomBarState createState() => _BottomBarState();
+  _BottomBarState createState() => _BottomBarState(OnTap);
 }
 
 class _BottomBarState extends State<BottomBar> {
+  late Function OnTap;
+  // Constructor
+  _BottomBarState(Function OnTap);
+  //
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
           label: "Home",
@@ -43,6 +49,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
         ),
       ],
+      onTap: (e) => OnTap(e),
     );
   }
 }
