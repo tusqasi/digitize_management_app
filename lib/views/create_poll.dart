@@ -5,8 +5,7 @@ import 'package:digitize_management_app/models/question_data.dart';
 import 'package:digitize_management_app/models/poll_data.dart';
 import 'package:digitize_management_app/widgets/create_poll_question.dart';
 import 'package:digitize_management_app/widgets/create_poll_options.dart';
-import 'package:digitize_management_app/widgets/appbar.dart';
-// import 'package:digitize_management_app/widgets/create_poll_options_multiple.dart';
+import 'package:digitize_management_app/widgets/create_poll_options_multiple.dart';
 import 'package:provider/provider.dart';
 
 class CreatePollPage extends StatefulWidget {
@@ -17,13 +16,14 @@ class CreatePollPage extends StatefulWidget {
 }
 
 class _CreatePollPageState extends State<CreatePollPage> {
-  bool multiple = false;
-  late FocusNode addOptionFocus = FocusNode(debugLabel: "idk what i am doing");
+  bool multiple = true;
+  late FocusNode addOptionFocus = FocusNode();
+  late FocusNode questionFocus = FocusNode();
   String title = "Create Poll";
   @override
   void initState() {
     super.initState();
-    multiple = false;
+    multiple = true;
   }
 
   @override
@@ -61,6 +61,7 @@ class _CreatePollPageState extends State<CreatePollPage> {
                       const SnackBar(
                           content: Text('No question added. Put a question.')),
                     );
+                    questionFocus.requestFocus();
                     return;
                   } else if (options.isEmpty) {
                     addOptionFocus.requestFocus();
@@ -73,7 +74,10 @@ class _CreatePollPageState extends State<CreatePollPage> {
                   }
                   Provider.of<PollsData>(context, listen: false)
                       .add(question: question, options: options);
-                  Navigator.pushNamed(context, '/home');
+                  Provider.of<OptionsData>(context, listen: false)
+                      .options
+                      .clear();
+                  Navigator.popAndPushNamed(context, '/home');
                 },
               ),
             ],
@@ -83,7 +87,8 @@ class _CreatePollPageState extends State<CreatePollPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PollQuestion(addOptionFocus),
+            PollQuestion(
+                addOptionFocus: addOptionFocus, questionFocus: questionFocus),
             Row(
               children: [
                 const Text("Single | Multiple"),
@@ -97,7 +102,9 @@ class _CreatePollPageState extends State<CreatePollPage> {
                 ),
               ],
             ),
-            PollOptions(addOptionFocus)
+            multiple
+                ? PollMultipleOptions(addOptionFocus)
+                : PollOptions(addOptionFocus),
           ],
         ),
       ),

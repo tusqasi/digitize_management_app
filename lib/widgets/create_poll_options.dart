@@ -17,19 +17,19 @@ class _PollOptionsState extends State<PollOptions> {
   var rand = Random();
 
   var textController = TextEditingController();
-  var scrollController = ScrollController();
+  // var scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     selectedRadio = 1;
-    Provider.of<OptionsData>(context, listen: false).options.clear();
+    // Provider.of<OptionsData>(context, listen: false).options.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: ListView(
-        controller: scrollController,
+        // controller: scrollController,
         children: [
           Consumer<OptionsData>(
             builder: (context, provider, child) {

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:digitize_management_app/utils/to_color.dart';
-import 'package:digitize_management_app/widgets/topbar.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:digitize_management_app/widgets/bottombar.dart';
 import 'package:digitize_management_app/models/poll_data.dart';
 import 'package:provider/provider.dart';
-
-import 'package:digitize_management_app/widgets/appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

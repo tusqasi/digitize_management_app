@@ -111,9 +111,8 @@ class BottomSheets extends StatelessWidget {
                 }
                 Navigator.pushNamed(context, '/polls').then((event) {
                   /// this callback seems to be called only when back button is pessed
-                  print("here");
+                  print("In bottom bar future callback");
                   print(event);
-                  Navigator.pop(context);
                 });
               },
             ),

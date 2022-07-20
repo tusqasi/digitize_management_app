@@ -6,7 +6,6 @@ import 'package:digitize_management_app/utils/digitize_theme.dart';
 import 'package:digitize_management_app/models/option_data.dart';
 import 'package:digitize_management_app/models/question_data.dart';
 import 'package:digitize_management_app/models/poll_data.dart';
-import 'package:digitize_management_app/models/enums.dart';
 
 void main() {
   runApp(
@@ -27,21 +26,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // onGenerateRoute: (settings) {
-      //   print(settings);
-      //   switch (settings.name) {
-      //     case '/':
-      //       return MaterialPageRoute(builder: (context) => HomePage());
-      //     case '/polls':
-      //       return MaterialPageRoute(builder: (context) => CreatePollPage());
-      //
-      //     default:
-      //       return MaterialPageRoute(
-      //           builder: (context) => Scaffold(
-      //                 body: Text("Unknow route"),
-      //               ));
-      //   }
-      // },
       title: "Digitize",
       initialRoute: "/home",
       theme: digitizeTheme(),

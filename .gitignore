@@ -45,3 +45,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+COMMIT_EDITMSG
+HEAD
+ORIG_HEAD
+commondir
+gitdir
+index
+logs/
+

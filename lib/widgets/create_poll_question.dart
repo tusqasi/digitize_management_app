@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PollQuestion extends StatefulWidget {
-  late final FocusNode addOptionFocus;
-  PollQuestion(this.addOptionFocus, {Key? key}) : super(key: key);
+  final FocusNode addOptionFocus;
+  final FocusNode questionFocus;
+  PollQuestion(
+      {required this.addOptionFocus, required this.questionFocus, Key? key})
+      : super(key: key);
 
   @override
   _PollQuestionState createState() => _PollQuestionState();
@@ -26,6 +29,7 @@ class _PollQuestionState extends State<PollQuestion> {
         ),
         TextField(
             autofocus: true,
+            focusNode: widget.questionFocus,
             controller: textController,
             decoration: const InputDecoration(
               border: InputBorder.none,
