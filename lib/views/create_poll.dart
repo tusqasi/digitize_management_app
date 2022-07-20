@@ -89,6 +89,11 @@ class _CreatePollPageState extends State<CreatePollPage> {
           children: [
             PollQuestion(
                 addOptionFocus: addOptionFocus, questionFocus: questionFocus),
+            multiple
+                ? PollMultipleOptions(addOptionFocus)
+                : PollOptions(addOptionFocus),
+
+            /// Single multiple switch
             Row(
               children: [
                 const Text("Single | Multiple"),
@@ -102,9 +107,6 @@ class _CreatePollPageState extends State<CreatePollPage> {
                 ),
               ],
             ),
-            multiple
-                ? PollMultipleOptions(addOptionFocus)
-                : PollOptions(addOptionFocus),
           ],
         ),
       ),
