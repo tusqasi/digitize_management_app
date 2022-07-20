@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'dart:math';
 
 class PollOptions extends StatefulWidget {
-  const PollOptions({Key? key}) : super(key: key);
+  FocusNode addOptionFocus;
+  PollOptions(this.addOptionFocus, {Key? key}) : super(key: key);
 
   @override
   _PollOptionsState createState() => _PollOptionsState();
@@ -16,74 +17,95 @@ class _PollOptionsState extends State<PollOptions> {
   var rand = Random();
 
   var textController = TextEditingController();
+  var scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     selectedRadio = 1;
+    Provider.of<OptionsData>(context, listen: false).options.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...Provider.of<OptionsData>(context).options.map(
-              (e) => RadioListTile(
-                groupValue: 1,
-                value: 0,
-                // dense: true,
-                onChanged: (v) {},
-                title: Text(
-                  e,
-                ),
-                secondary: GestureDetector(
-                  onTap: () {
-                    Provider.of<OptionsData>(context, listen: false)
-                        .options
-                        .remove(e);
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-        RadioListTile(
-          selected: false,
-          // contentPadding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-          groupValue: 1,
-          value: 0,
-          // dense: true,
-
-          onChanged: (v) {
-            setState(() {
-              if (kDebugMode) {
-                Provider.of<OptionsData>(context, listen: false)
-                    .options
-                    .add(rand.nextInt(10).toString());
-              }
-            });
-          },
-          title: TextField(
-            controller: textController,
-            onEditingComplete: () {
-              print(textController.text);
-              if (textController.text.isNotEmpty) {
-                Provider.of<OptionsData>(context, listen: false)
-                    .options
-                    .add(textController.text);
+    return Flexible(
+      child: ListView(
+        controller: scrollController,
+        children: [
+          Consumer<OptionsData>(
+            builder: (context, provider, child) {
+              if (provider.options.isNotEmpty) {
+                // scrollController.animateTo(
+                //   scrollController.position.maxScrollExtent ?? 10,
+                //   duration: const Duration(
+                //     milliseconds: 100,
+                //   ),
+                //   curve: Curves.easeInExpo,
+                // );
+                return Column(
+                  /// makes a list of RadioListTile from a options list
+                  children: provider.options
+                      .map(
+                        (option) => RadioListTile(
+                          groupValue: 1,
+                          value: 0,
+                          // dense: true,
+                          onChanged: (v) {},
+                          title: Text(
+                            option,
+                          ),
+                          secondary: GestureDetector(
+                            onTap: () {
+                              provider.remove(option);
+                              setState(() {});
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              } else {
+                return Container(height: 10);
               }
             },
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Add option",
-            ),
-            style: TextStyle(color: Colors.grey),
           ),
-        ),
-      ],
+          // Add option tile
+          RadioListTile(
+            selected: false,
+            groupValue: 1,
+            value: 0,
+            onChanged: (v) {
+              setState(() {
+                if (kDebugMode) print("Pressed on the radio button");
+              });
+            },
+            title: TextField(
+              focusNode: widget.addOptionFocus,
+              controller: textController,
+              onEditingComplete: () {
+                if (textController.text.isNotEmpty) {
+                  Provider.of<OptionsData>(context, listen: false)
+                      .add(textController.text);
+
+                  if (kDebugMode) {
+                    print("Editing completed / pressed submit button");
+                  }
+                  setState(() {});
+                }
+                textController.clear();
+              },
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: "Add option",
+              ),
+              style: const TextStyle(color: Colors.grey),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

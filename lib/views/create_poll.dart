@@ -1,11 +1,12 @@
-import 'package:digitize_management_app/main.dart';
-import 'package:digitize_management_app/models/option_data.dart';
-import 'package:digitize_management_app/models/question_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:digitize_management_app/models/option_data.dart';
+import 'package:digitize_management_app/models/question_data.dart';
+import 'package:digitize_management_app/models/poll_data.dart';
 import 'package:digitize_management_app/widgets/create_poll_question.dart';
-import 'package:digitize_management_app/widgets/create_poll_options_multiple.dart';
 import 'package:digitize_management_app/widgets/create_poll_options.dart';
+import 'package:digitize_management_app/widgets/appbar.dart';
+// import 'package:digitize_management_app/widgets/create_poll_options_multiple.dart';
 import 'package:provider/provider.dart';
 
 class CreatePollPage extends StatefulWidget {
@@ -17,7 +18,8 @@ class CreatePollPage extends StatefulWidget {
 
 class _CreatePollPageState extends State<CreatePollPage> {
   bool multiple = false;
-
+  late FocusNode addOptionFocus = FocusNode(debugLabel: "idk what i am doing");
+  String title = "Create Poll";
   @override
   void initState() {
     super.initState();
@@ -25,38 +27,63 @@ class _CreatePollPageState extends State<CreatePollPage> {
   }
 
   @override
+  void dispose() {
+    addOptionFocus.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.done),
-            onPressed: () {
-              if (kDebugMode) {
-                print(Provider.of<OptionsData>(context, listen: false).options);
-                print(
-                    Provider.of<QuestionData>(context, listen: false).question);
-              }
-            },
-          ),
-        ],
-        title: Text(
-          "Create Poll",
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              ?.copyWith(color: Colors.black),
-        ),
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size(50, 50),
+          child: AppBar(
+            title: Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(color: Colors.black),
+            ),
+            actions: [
+              // ✅ Ok button
+              IconButton(
+                icon: const Icon(Icons.done),
+                onPressed: () {
+                  String question =
+                      Provider.of<QuestionData>(context, listen: false)
+                          .question;
+                  List<String> options =
+                      Provider.of<OptionsData>(context, listen: false).options;
+
+                  if (question == '') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('No question added. Put a question.')),
+                    );
+                    return;
+                  } else if (options.isEmpty) {
+                    addOptionFocus.requestFocus();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content:
+                              Text('No options added. Put some options in.')),
+                    );
+                    return;
+                  }
+                  Provider.of<PollsData>(context, listen: false)
+                      .add(question: question, options: options);
+                  Navigator.pushNamed(context, '/home');
+                },
+              ),
+            ],
+          )),
       body: Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PollQuestion(),
+            PollQuestion(addOptionFocus),
             Row(
               children: [
                 const Text("Single | Multiple"),
@@ -70,7 +97,7 @@ class _CreatePollPageState extends State<CreatePollPage> {
                 ),
               ],
             ),
-            multiple ? PollMultipleOptions() : PollOptions(),
+            PollOptions(addOptionFocus)
           ],
         ),
       ),

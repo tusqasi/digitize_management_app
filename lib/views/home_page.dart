@@ -3,6 +3,10 @@ import 'package:digitize_management_app/utils/to_color.dart';
 import 'package:digitize_management_app/widgets/topbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:digitize_management_app/widgets/bottombar.dart';
+import 'package:digitize_management_app/models/poll_data.dart';
+import 'package:provider/provider.dart';
+
+import 'package:digitize_management_app/widgets/appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Widget> notifications = [
+  String title = 'Home';
+  final List notifications = [
     const ListTile(
       leading: Icon(Icons.newspaper),
       title: Text(
@@ -31,37 +36,25 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    notifications = notifications + notifications;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Home",
-            style: GoogleFonts.roboto(
-              textStyle: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          shadowColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1.0),
-            child: Container(
-              height: 1.0,
-              color: Colors.grey[400],
+        appBar: PreferredSize(
+          preferredSize: Size(50, 50),
+          child: AppBar(
+            title: Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(color: Colors.black),
             ),
           ),
         ),
-        bottomNavigationBar: BottomBar(
-          (x) {
-            print(x + 100);
-          },
-        ),
+        bottomNavigationBar: BottomBar(),
         body: ListView(
           padding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
           children: [
@@ -88,7 +81,21 @@ class _HomePageState extends State<HomePage> {
                   color: "#023e8a".toColor(),
                 )),
             // All notification items
-            ...notifications,
+            Consumer<PollsData>(builder: (context, pollsData, child) {
+              return Column(
+                children: <Widget>[
+                  ...notifications,
+                  ...pollsData.polls.map((poll) {
+                    return ListTile(
+                        leading: Icon(Icons.people_outline),
+                        title: Text(
+                          poll.question,
+                        ),
+                        subtitle: Text('Poll'));
+                  }).toList()
+                ],
+              );
+            }),
           ],
         ));
   }

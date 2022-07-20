@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class QuestionData with ChangeNotifier, DiagnosticableTreeMixin {
-  late String question="sfasdj";
+  String question = '';
 
   /// Makes `Counter` readable inside the devtools by listing all of its properties
   @override

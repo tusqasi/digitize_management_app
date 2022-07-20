@@ -1,11 +1,21 @@
 import 'package:flutter/foundation.dart';
 
 class OptionsData with ChangeNotifier, DiagnosticableTreeMixin {
-  List<String> _options = [];
+  List<String> options = [];
+  void add(option) {
+    options.add(option);
+    notifyListeners();
+  }
 
-  List<String> get options => _options;
-  set options(List<String> x) {
-    _options = x;
+  String get option => options.last;
+  void remove(option) {
+    assert(options.contains(option),
+        "option: $option doesn't exist in the options");
+    if (kDebugMode) {
+      print("Removing option $option");
+    }
+    options.remove(option);
+    notifyListeners();
   }
 
   /// Makes `Counter` readable inside the devtools by listing all of its properties
@@ -15,5 +25,3 @@ class OptionsData with ChangeNotifier, DiagnosticableTreeMixin {
     properties.add(IterableProperty('options', options));
   }
 }
-
-

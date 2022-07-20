@@ -7,9 +7,9 @@ import 'package:flutter/services.dart';
 ThemeData digitizeTheme() {
   return ThemeData(
     appBarTheme: AppBarTheme(
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ),
+      // Makes the status bar text dark on light background.
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      // This is a slight off white
       color: Colors.grey[50],
       shadowColor: Colors.transparent,
       titleTextStyle: const TextTheme().headline6?.copyWith(
@@ -20,14 +20,11 @@ ThemeData digitizeTheme() {
       ),
       centerTitle: true,
     ),
+    backgroundColor: Colors.grey[50],
     primaryColor: AppColors().primary,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: AppColors().primary,
-      selectionColor: AppColors().primary,
     ),
-    // textTheme: TextTheme(
-    //   caption: GoogleFonts.poppins(),
-    // ),
     listTileTheme: const ListTileThemeData(),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       showUnselectedLabels: false,

@@ -9,7 +9,14 @@ import 'package:digitize_management_app/models/option_data.dart';
 class DigitizeAppBar extends StatefulWidget {
   // late final FocusNode addOptionFocus;
   late final List<Widget> actions;
-  DigitizeAppBar({this.actions = const [], Key? key}) : super(key: key);
+  late final String title;
+  final IconData? leadingIcon;
+  DigitizeAppBar(
+      {this.leadingIcon,
+      required this.title,
+      this.actions = const [],
+      Key? key})
+      : super(key: key);
 
   @override
   _DigitizeAppBarState createState() => _DigitizeAppBarState();
@@ -18,13 +25,31 @@ class DigitizeAppBar extends StatefulWidget {
 class _DigitizeAppBarState extends State<DigitizeAppBar> {
   @override
   Widget build(BuildContext context) {
+    if (widget.leadingIcon == null) {
+      return AppBar(
+        actions: widget.actions,
+        title: Text(
+          widget.title,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(color: Colors.black),
+        ),
+      );
+    }
+
     return AppBar(
-      leading: const Icon(
-        Icons.arrow_back,
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Icon(
+          Icons.arrow_back,
+        ),
       ),
       actions: widget.actions,
       title: Text(
-        "Create Poll",
+        widget.title,
         style: Theme.of(context)
             .textTheme
             .headline6

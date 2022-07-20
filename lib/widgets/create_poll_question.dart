@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PollQuestion extends StatefulWidget {
-  const PollQuestion({Key? key}) : super(key: key);
+  late final FocusNode addOptionFocus;
+  PollQuestion(this.addOptionFocus, {Key? key}) : super(key: key);
 
   @override
   _PollQuestionState createState() => _PollQuestionState();
 }
 
 class _PollQuestionState extends State<PollQuestion> {
+  _PollQuestionState();
   final textController = TextEditingController();
 
   @override
@@ -23,6 +25,7 @@ class _PollQuestionState extends State<PollQuestion> {
           style: Theme.of(context).textTheme.headline5,
         ),
         TextField(
+            autofocus: true,
             controller: textController,
             decoration: const InputDecoration(
               border: InputBorder.none,
@@ -30,10 +33,11 @@ class _PollQuestionState extends State<PollQuestion> {
             ),
             onEditingComplete: () {
               if (kDebugMode) {
-                print("updating question to: ${textController.text}");
+                print("Updating question to: ${textController.text}");
               }
               Provider.of<QuestionData>(context, listen: false).question =
                   textController.text;
+              widget.addOptionFocus.requestFocus();
             }),
       ],
     );
