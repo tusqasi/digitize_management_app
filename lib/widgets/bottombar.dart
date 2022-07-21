@@ -109,7 +109,7 @@ class BottomSheets extends StatelessWidget {
                 if (kDebugMode) {
                   print("You are now taking a poll");
                 }
-                Navigator.pushNamed(context, '/polls').then((event) {
+                Navigator.popAndPushNamed(context, '/polls').then((event) {
                   /// this callback seems to be called only when back button is pessed
                   print("In bottom bar future callback");
                   print(event);
