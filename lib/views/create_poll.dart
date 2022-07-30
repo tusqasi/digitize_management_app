@@ -1,3 +1,4 @@
+import 'package:digitize_management_app/widgets/titled_text_input.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:digitize_management_app/models/option_data.dart';
@@ -87,17 +88,24 @@ class _CreatePollPageState extends State<CreatePollPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PollQuestion(
-                addOptionFocus: addOptionFocus, questionFocus: questionFocus),
+            TitledTextInput(
+              title: "What is your question?",
+              hintText: "Question",
+              gotoOnComplete: addOptionFocus,
+              titleFocus: questionFocus,
+              updateProvider: Provider.of<QuestionData>(context, listen: false),
+            ),
             Row(
               children: [
                 const Text("Single | Multiple"),
                 Switch(
                   value: multiple,
                   onChanged: (v) {
-                    setState(() {
-                      multiple = v;
-                    });
+                    setState(
+                      () {
+                        multiple = v;
+                      },
+                    );
                   },
                 ),
               ],
