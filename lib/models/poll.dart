@@ -1,7 +1,7 @@
 class Poll {
   String question;
-  List<String> options;
+  List options;
   bool multiple;
 
-  Poll(this.question, this.options, this.multiple);
+  Poll(this.question, this.options, [this.multiple = false]);
 }
