@@ -2,6 +2,8 @@
 
 An app to digitize college management.
 
+Check out the design [here](https://www.figma.com/file/n1b8P6aTjGTtjgFsOpLrLK/first_draft?type=design&node-id=1019-30835&t=q46u68npb6JDhDHF-0q) 
+
 ## Installing and setting up a flutter environment
 
 Install git before next steps
